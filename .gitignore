@@ -1,3 +1,4 @@
-/task
 /example.py
 /venv
+/.idea
+/__pycache__/

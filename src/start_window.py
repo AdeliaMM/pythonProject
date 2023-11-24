@@ -1,8 +1,8 @@
-from tkinter import *
+from tkinter import END, Tk, StringVar
 from tkinter import ttk
-import file_processing
-from Variables import *
 
+import src.file_processing
+from Variables import *
 
 main_window = Tk()
 
@@ -224,10 +224,11 @@ def start():
 
 
 def set_path_key():
-    if path.get() != entry_path_text[english] and key.get() not in (
-    entry_key_text[english], entry_caesar_text[english]):
+    if (path.get() != entry_path_text[english] and key.get() not in
+            (entry_key_text[english], entry_caesar_text[english])):
         btn.forget()
-        file_processing.processing(path, key.get(), cipher, todo, phrase_error[english], entry_frequency_error[english], key, path_style)
+        src.file_processing.processing(path, key.get(), cipher, todo, phrase_error[english], entry_frequency_error[english],
+                                   key, path_style, key_style)
     if path.get() == entry_path_text[english]:
         path_style.map('MyPath.TEntry', foreground=[('!focus', 'red'), ('focus', 'black')])
     if key.get() in (entry_key_text[english], entry_caesar_text[english]):

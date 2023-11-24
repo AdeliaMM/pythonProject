@@ -25,12 +25,13 @@ def sym_frequency(text):
                 frequencies[sym.lower()] = 1
     frequencies = dict(sorted(frequencies.items(), key=lambda item: item[1]))
     frequencies_keys = list(frequencies.keys())
-    if frequencies_keys[0] in "абвгдеёжзийклмнопрстуфхцчшщъыьэюя":
+    alphabet = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя"
+    if frequencies_keys[0] in alphabet:
         for i in range(5):
             for j in range(5):
-                if "абвгдеёжзийклмнопрстуфхцчшщъыьэюя".find(frequencies_keys[i]) - "абвгдеёжзийклмнопрстуфхцчшщъыьэюя".find(frequencies_keys[j]) == -10:
-                    key = "абвгдеёжзийклмнопрстуфхцчшщъыьэюя".find(frequencies_keys[i]) - 15
-                    if "абвгдеёжзийклмнопрстуфхцчшщъыьэюя".find(frequencies_keys[i]) - 5 == key:
+                if alphabet.find(frequencies_keys[i]) - alphabet.find(frequencies_keys[j]) == -10:
+                    key = alphabet.find(frequencies_keys[i]) - 15
+                    if alphabet.find(frequencies_keys[i]) - 5 == key:
                         return key
         return 'error'
     else:

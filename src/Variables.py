@@ -6,9 +6,10 @@ key = ''
 
 phrase_cipher = ('Выберите ваш шифр', 'Choose your cipher')
 phrase_todo = ('Вы хотите зашифровать или расшифровать ваш файл?', 'Do you want to encrypt or to decrypt your file?')
-phrase_language = ('If you want to change language use Alt+Shift', 'Для смены языка используйте Alt+Shift')
+phrase_language = ('Use Alt+Shift to change the language', 'Для смены языка используйте Alt+Shift')
 btn_text = ('Ввести', 'Enter')
-combo_cipher_lang = (['Шифр Цезаря', 'Шифр Виженера', 'Шифр Вернама'], ['Caesar cipher', 'Vigenère cipher', 'Vernam cipher'])
+combo_cipher_lang = (['Шифр Цезаря', 'Шифр Виженера', 'Шифр Вернама'],
+                     ['Caesar cipher', 'Vigenère cipher', 'Vernam cipher'])
 combo_todo_lang = (['Зашифровать', 'Расшифровать'], ['Encrypt', 'Decrypt'])
 entry_path_text = ('Введите путь к вашему файлу', 'Enter path to your file')
 entry_key_text = ('Введите ключ', 'Enter key')
