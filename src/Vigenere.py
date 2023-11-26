@@ -11,9 +11,9 @@ def vigenere(todo, key, sym):
     global keys
     keys = (keys + 1) % len(key)
     key = dictionary.lower().find(key[keys].lower())
-    if todo == 0:
-        new_dict = dictionary[key:] + dictionary[0:key]
-    else:
+    if todo:
         new_dict = dictionary[len(dictionary) - key:] + dictionary[0:len(dictionary) - key]
+    else:
+        new_dict = dictionary[key:] + dictionary[0:key]
     sym = new_dict[dictionary.find(sym)]
     return sym
