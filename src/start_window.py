@@ -1,8 +1,8 @@
 from tkinter import END, StringVar, Tk
-from tkinter import ttk
+from tkinter.ttk import Button, Combobox, Entry, Label, Style
 
-import src.file_processing
-from src.Variables import *
+from src.file_processing import processing
+from src.variables import *
 
 main_window = Tk()
 
@@ -26,20 +26,20 @@ for c in range(5):
 for r in range(15):
     main_window.rowconfigure(index=r, weight=1)
 
-label_style = ttk.Style()
+label_style = Style()
 label_style.configure('My.TLabel',
                       font='Times 15',
                       foreground='white',
                       background=bg_color,
                       anchor='center')
 
-label_widget_cipher = ttk.Label(
+label_widget_cipher = Label(
     master=main_window,
     text=phrase_cipher[english],
     style='My.TLabel'
 )
 
-label_widget_todo = ttk.Label(
+label_widget_todo = Label(
     master=main_window,
     text=phrase_todo[english],
     style='My.TLabel'
@@ -95,9 +95,9 @@ def set_cipher():
     start()
 
 
-btn = ttk.Button(text=btn_text[english],
-                 style='My.TButton')
-btn_style = ttk.Style()
+btn = Button(text=btn_text[english],
+             style='My.TButton')
+btn_style = Style()
 btn_style.configure('My.TButton',
                     relief='flat'
                     )
@@ -108,16 +108,14 @@ btn.focus_set()
 btn.bind('<Return>', lambda event: set_cipher())
 btn.bind('<Button-1>', lambda event: set_cipher())
 
-combo_cipher = ttk.Combobox(main_window,
-                            values=combo_cipher_lang[english],
-                            state='readonly',
-                            style='My.TEntry')
-combo_cipher.bind('<<ComboboxSelected>>', lambda event: combo_set())
+combo_cipher = Combobox(main_window,
+                        values=combo_cipher_lang[english],
+                        state='readonly',
+                        style='My.TEntry')
+combo_cipher.bind('<<ComboboxSelected>>', lambda event: combo_cipher_set())
 
 
-def combo_set():
-    btn.focus_set()
-    print(combo_cipher.current())
+def combo_cipher_set():
     if combo_cipher.current() == 2:
         combo_todo.grid_forget()
         label_widget_todo.grid_forget()
@@ -129,15 +127,23 @@ def combo_set():
         label_widget_todo.grid(row=4, column=1, columnspan=3, sticky='swne')
         label_widget_cipher.grid(row=1, column=1, columnspan=3, sticky='swne')
         combo_cipher.grid(row=2, column=1, columnspan=3, sticky='sn')
+    btn.focus_set()
 
 
-combo_todo = ttk.Combobox(main_window,
-                          values=combo_todo_lang[english],
-                          state='readonly',
-                          style='My.TEntry')
-combo_todo.bind('<<ComboboxSelected>>', lambda event: btn.focus_set)
+combo_todo = Combobox(main_window,
+                      values=combo_todo_lang[english],
+                      state='readonly',
+                      style='My.TEntry')
+combo_todo.bind('<<ComboboxSelected>>', lambda event: combo_todo_set())
 
-label_widget_language = ttk.Label(
+
+def combo_todo_set():
+    global todo
+    todo = combo_todo.current()
+    btn.focus_set()
+
+
+label_widget_language = Label(
     master=main_window,
     text=phrase_language[english],
     style='My.TLabel',
@@ -177,27 +183,27 @@ btn.grid(row=7, column=1, columnspan=3)
 
 path = StringVar()
 
-entry_path = ttk.Entry(main_window,
-                       textvariable=path,
-                       justify='left',
-                       style='MyPath.TEntry',
-                       )
+entry_path = Entry(main_window,
+                   textvariable=path,
+                   justify='left',
+                   style='MyPath.TEntry',
+                   )
 entry_path.bind('<BackSpace>', lambda event: fix_entry_set(path))
 
-path_style = ttk.Style()
+path_style = Style()
 path_style.configure('MyPath.TEntry', font='Times 17', selectbackground='grey')
 path_style.map('MyPath.TEntry', foreground=[('!focus', 'grey'), ('focus', 'black')])
 
 key = StringVar()
 
-entry_key = ttk.Entry(main_window,
-                      textvariable=key,
-                      justify='left',
-                      style='MyKey.TEntry',
-                      )
+entry_key = Entry(main_window,
+                  textvariable=key,
+                  justify='left',
+                  style='MyKey.TEntry',
+                  )
 entry_key.bind('<BackSpace>', lambda event: fix_entry_set(key))
 
-key_style = ttk.Style()
+key_style = Style()
 key_style.configure('MyKey.TEntry', font='Times 17', selectbackground='grey')
 key_style.map('MyKey.TEntry', foreground=[('!focus', 'grey'), ('focus', 'black')])
 
@@ -247,9 +253,9 @@ def set_path_key():
     if (path.get() != entry_path_text[english] and key.get() not in
             (entry_key_text[english], entry_caesar_text[english])):
         btn.forget()
-        src.file_processing.processing(path, key.get(), cipher, todo, phrase_error[english],
-                                       entry_frequency_error[english],
-                                       key, path_style, key_style)
+        processing(path, key.get(), cipher, todo, phrase_error[english],
+                   entry_frequency_error[english],
+                   key, path_style, key_style)
     if path.get() == entry_path_text[english]:
         path_style.map('MyPath.TEntry', foreground=[('!focus', 'red'), ('focus', 'black')])
     if key.get() in (entry_key_text[english], entry_caesar_text[english]):
