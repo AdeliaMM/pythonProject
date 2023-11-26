@@ -5,10 +5,10 @@ def caesar(todo, key, sym):
         dictionary, dictionary_upper = 'abcdefghijklmnopqrstuvwxyz', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
     if sym in dictionary_upper:
         dictionary = dictionary_upper
-    if todo == 0:
-        new_dict = dictionary[int(key):] + dictionary[0:int(key)]
+    if todo:
+        new_dict = dictionary[len(dictionary) - int(key):] + dictionary[0:len(dictionary) - int(key)]
     else:
-        new_dict = dictionary[len(dictionary)-int(key):] + dictionary[0:len(dictionary)-int(key)]
+        new_dict = dictionary[int(key):] + dictionary[0:int(key)]
     sym = new_dict[dictionary.find(sym)]
     return sym
 
