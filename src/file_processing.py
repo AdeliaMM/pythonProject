@@ -2,10 +2,9 @@ import os
 
 import docx
 
-from src.Caesar import *
-from src.Vernam import *
-from src.Vigenere import *
-
+from src.caesar import *
+from src.vernam import vernam
+from src.vigenere import vigenere
 
 def processing(path, key, cipher, todo, error, key_error, key_entry, path_style, key_style):
     how_coded = ('encrypted', 'decrypted')
